@@ -17,7 +17,7 @@ function Auth() {
             email: '',
             password: '',
         },
-        mode: 'onChange',
+        mode: 'all',
     });
 
     const onSubmit = async (values) => {
@@ -59,19 +59,23 @@ function Auth() {
                         <form className="form-item log-in" onSubmit={handleSubmit(onSubmit)}>
                             <div className="table">
                                 <div className="table-cell">
-                                    <input
-                                        type="email"
-                                        name="login"
-                                        placeholder="Введите эл. почту"
-                                        {...register('email', { required: 'Укажите почту' })} />
-                                    {/* <span>{errors.email?.message}</span> */}
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        placeholder="Введите пароль"
-                                        {...register('password', { required: 'Введите пароль' })} />
-                                    {/* <span>{errors.password?.message}</span> */}
-                                    <button className="btn" type="submit">Войти</button>
+                                    <div className={errors.email ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="email"
+                                            name="login"
+                                            placeholder="Введите эл. почту"
+                                            {...register('email', { required: 'Укажите почту' })} />
+                                        <div className="form-item__error">{errors.email?.message}</div>
+                                    </div>
+                                    <div className={errors.password ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            placeholder="Введите пароль"
+                                            {...register('password', { required: 'Введите пароль' })} />
+                                        <div className="form-item__error">{errors.password?.message}</div>
+                                    </div>
+                                    <button className="btn" disabled={!isValid} type="submit">Войти</button>
                                 </div>
                             </div>
                         </form>

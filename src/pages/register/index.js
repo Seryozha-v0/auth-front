@@ -1,13 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, redirect } from 'react-router-dom';
+import { Link, Navigate, redirect } from 'react-router-dom';
 import { fetchLogin, fetchRegister, selectIsAuth } from '../../redux/slices/auth';
 import axios from '../../axios';
 
 function Registr() {
     const isAuth = useSelector(selectIsAuth);
-    const [ avatarUrl, setAvatarUrl ] = React.useState('');
+    const [avatarUrl, setAvatarUrl] = React.useState('');
 
     const inputFileRef = React.useRef(null);
     const handleChangeFile = async (e) => {
@@ -30,16 +30,16 @@ function Registr() {
     const {
         register,
         handleSubmit,
-        setError,
+        getValues,
         formState: { errors, isValid }
     } = useForm({
         defaultValues: {
             name: '',
-            avatarUrl: '',
             email: '',
             password: '',
+            cpassword: '',
         },
-        mode: 'onChange',
+        mode: 'all',
     });
 
     const onSubmit = async (values) => {
@@ -61,42 +61,71 @@ function Registr() {
     }
 
     return (
-        <div className="registr">
-            <h2>Регистрация</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Введите ФИО"
-                    {...register('name', { required: 'Укажите имя' })} />
-                <button type="button" onClick={() => inputFileRef.current.click()}>
-                    Загрузить автарку
-                </button>
-                <input
-                    ref={inputFileRef}
-                    onChange={handleChangeFile}
-                    type="file"
-                    name="avatarUrl"
-                    hidden />
-                {avatarUrl && (
-                    <>
-                        <img src={`http://localhost:4400${avatarUrl}`} width="5%" alt="avatarPreview" />
-                        <button type="button" onClick={onClickRemoveImage}>
-                            Удалить автарку
-                        </button>
-                    </>
-                )}
-                <input
-                    type="email"
-                    name="login"
-                    placeholder="Введите эл. почту"
-                    {...register('email', { required: 'Укажите почту' })} />
-                <input
-                    type="password"
-                    name="password"
-                    {...register('password', { required: 'Укажите пароль' })} />
-                <button disabled={!isValid} type="submit">Регистрироватся</button>
-            </form>
+        <div className='wrapper-forms'>
+            <div className='container'>
+                <div className="box"></div>
+                <div className="container-forms">
+
+                    <div className="container-info">
+                        <div className="info-item">
+                            <div className="table">
+                                <div className="table-cell">
+                                    <p>
+                                        Уже есть аккаунт?
+                                    </p>
+                                    <Link to='/auth' className="btn">
+                                        Авторизоваться
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="container-form">
+
+                        <form className="form-item log-in" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="table">
+                                <div className="table-cell">
+                                    <div className={errors.name ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Введите ФИО"
+                                            {...register('name', { required: 'Укажите имя' })} />
+                                        <div className='form-item__error'>{errors.name?.message}</div>
+                                    </div>
+                                    <div className={errors.email ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="email"
+                                            name="login"
+                                            placeholder="Введите эл. почту"
+                                            {...register('email', { required: 'Укажите почту' })} />
+                                        <div className='form-item__error'>{errors.email?.message}</div>
+                                    </div>
+                                    <div className={errors.password ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            placeholder="Введите пароль"
+                                            {...register('password', { required: 'Укажите пароль', minLength: {value: 8, message: "Слишком короткий пароль"}  })} />
+                                        <div className='form-item__error'>{errors.password?.message}</div>
+                                    </div>
+                                    <div className={errors.cpassword ? 'form-item__input form-item__input_error' : 'form-item__input'}>
+                                        <input
+                                            type="password"
+                                            name="cpassword"
+                                            placeholder="Повторите пароль"
+                                            {...register('cpassword', { required: true, minLength: 8, validate: (value) => value === getValues("password") || 'Пароли не совпадают'})} />
+                                        <div className='form-item__error'>{errors.cpassword?.message}</div>
+                                    </div>
+                                    <button className="btn" disabled={!isValid} type="submit">Регистрироватся</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
     )
 }
