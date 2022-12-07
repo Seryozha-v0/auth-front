@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogOut, fetchLogin, selectIsAuth } from '../redux/slices/auth';
+import './index.css';
 
 function Home() {
     const isAuth = useSelector(selectIsAuth);

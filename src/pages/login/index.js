@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { fetchAuth, selectIsAuth } from '../../redux/slices/auth';
 
 function Auth() {
@@ -35,26 +35,51 @@ function Auth() {
     }
 
     return (
-        <div className="auth">
-            <h2>Авторизация</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="emailInput">
-                    <input
-                        type="email"
-                        name="login"
-                        placeholder="Введите эл. почту"
-                        {...register('email', { required: 'Укажите почту' })} />
-                    <span>{errors.email?.message}</span>
+        <div className='wrapper-forms'>
+            <div className='container'>
+                <div className="box"></div>
+                <div className="container-forms">
+
+                    <div className="container-info">
+                        <div className="info-item">
+                            <div className="table">
+                                <div className="table-cell">
+                                    <p>
+                                        Нет аккаунта?
+                                    </p>
+                                    <Link to='/register' className="btn">
+                                        Регистрация
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="container-form">
+
+                        <form className="form-item log-in" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="table">
+                                <div className="table-cell">
+                                    <input
+                                        type="email"
+                                        name="login"
+                                        placeholder="Введите эл. почту"
+                                        {...register('email', { required: 'Укажите почту' })} />
+                                    {/* <span>{errors.email?.message}</span> */}
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        placeholder="Введите пароль"
+                                        {...register('password', { required: 'Введите пароль' })} />
+                                    {/* <span>{errors.password?.message}</span> */}
+                                    <button className="btn" type="submit">Войти</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
                 </div>
-                <div className="passwordlInput">
-                    <input
-                        type="password"
-                        name="password"
-                        {...register('password', { required: 'Введите пароль' })} />
-                    <span>{errors.password?.message}</span>
-                </div>
-                <button type="submit">Войти</button>
-            </form>
+            </div>
         </div>
     )
 }
