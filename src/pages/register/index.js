@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, redirect } from 'react-router-dom';
-import { fetchRegister, selectIsAuth } from '../../redux/slices/auth';
+import { fetchLogin, fetchRegister, selectIsAuth } from '../../redux/slices/auth';
 import axios from '../../axios';
 
 function Registr() {
@@ -50,7 +50,7 @@ function Registr() {
             return window.confirm('Не удалось регистрироваться');
         }
 
-        return redirect('/');
+        return <Navigate to="/" />;
     };
 
     if (isAuth) {

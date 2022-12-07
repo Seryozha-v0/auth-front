@@ -62,6 +62,19 @@ const authSlice = createSlice({
             state.data = null;
         },
         //Registration
+        [fetchRegister.pending]: (state) => {
+            state.status = 'loading';
+            state.data = null;
+        },
+        [fetchRegister.fulfilled]: (state, action) => {
+            state.status = 'loaded';
+            state.data = action.payload;
+        },
+        [fetchRegister.pending]: (state) => {
+            state.status = 'error';
+            state.data = null;
+        },
+        //logout
         [fetchLogOut.pending]: (state) => {
             state.status = 'loading';
             state.data = null;

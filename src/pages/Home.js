@@ -6,11 +6,6 @@ function Home() {
     const isAuth = useSelector(selectIsAuth);
     const dispatch = useDispatch();
 
-    // const isAuth = async () => {
-    //     const data = await dispatch(fetchLogin);
-    //     console.log(data);
-    //     return true;
-    // }
 
     console.log(isAuth);
 
