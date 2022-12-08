@@ -17,7 +17,7 @@ function Auth() {
             email: '',
             password: '',
         },
-        mode: 'all',
+        mode: 'onChange',
     });
 
     const onSubmit = async (values) => {
@@ -75,7 +75,7 @@ function Auth() {
                                             {...register('password', { required: 'Введите пароль' })} />
                                         <div className="form-item__error">{errors.password?.message}</div>
                                     </div>
-                                    <button className="btn" disabled={!isValid} type="submit">Войти</button>
+                                    <button className="btn" type="submit">Войти</button>
                                 </div>
                             </div>
                         </form>

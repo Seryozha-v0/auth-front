@@ -39,7 +39,7 @@ function Registr() {
             password: '',
             cpassword: '',
         },
-        mode: 'all',
+        mode: 'onChange',
     });
 
     const onSubmit = async (values) => {
@@ -117,7 +117,7 @@ function Registr() {
                                             {...register('cpassword', { required: true, minLength: 8, validate: (value) => value === getValues("password") || 'Пароли не совпадают'})} />
                                         <div className='form-item__error'>{errors.cpassword?.message}</div>
                                     </div>
-                                    <button className="btn" disabled={!isValid} type="submit">Регистрироватся</button>
+                                    <button className="btn" type="submit">Регистрироватся</button>
                                 </div>
                             </div>
                         </form>
