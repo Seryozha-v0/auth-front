@@ -31,9 +31,8 @@
 
 .container {
     position: relative;
-    width: 600px;
+    max-width: 600px;
     margin: 30px auto 0;
-    height: 320px;
     background-color: #999ede;
     top: 50%;
     margin-top: -160px;
@@ -195,20 +194,6 @@
     transition: all 0.5s;
 }
 
-.container .container-form:before {
-    content: "✔";
-    position: absolute;
-    left: 160px;
-    top: -50px;
-    color: #5356ad;
-    font-size: 130px;
-    opacity: 0;
-    -moz-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-}
-
 .container .container-form .btn {
     position: relative;
     box-shadow: 0 0 10px 1px #ff73b3;
@@ -229,51 +214,26 @@
     transition: all 0.5s;
 }
 
-.container.active {
-    width: 260px;
-    height: 140px;
-    margin-top: -70px;
-}
 
-.container.active .container-form {
-    left: 30px;
-    width: 200px;
-    height: 200px;
-}
+@media (max-width: 768px) {
+    .container {
+        top: 15%;
+    }
 
-.container.active .container-form:before {
-    content: "✔";
-    position: absolute;
-    left: 51px;
-    top: 5px;
-    color: #5356ad;
-    font-size: 130px;
-    opacity: 1;
-}
+    .container .container-forms .container-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.container.active input, .container.active .btn, .container.active .info-item {
-    display: none;
-    opacity: 0;
-    padding: 0px;
-    margin: 0 auto;
-    height: 0;
-}
+    .container .container-forms .container-info .info-item:last-child {
+        border-top: 1px solid #ffffff;
+    }
 
-.container.active .form-item {
-    height: 100%;
-}
-
-.container.active .container-forms .container-info .info-item {
-    height: 0%;
-    opacity: 0;
-}
-
-.rabbit {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    z-index: 3;
-    fill: #fff;
+    .container .container-form {
+        left: 50%;
+        transform: translate(-50%, 70%);
+        top: 0;
+    }
 }
