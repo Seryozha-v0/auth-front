@@ -11,7 +11,7 @@ function Auth() {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid }
+        formState: { errors }
     } = useForm({
         defaultValues: {
             email: '',

@@ -1,30 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate, redirect } from 'react-router-dom';
-import { fetchLogin, fetchRegister, selectIsAuth } from '../../redux/slices/auth';
-import axios from '../../axios';
+import { Link, Navigate } from 'react-router-dom';
+import { fetchRegister, selectIsAuth } from '../../redux/slices/auth';
 
 function Registr() {
     const isAuth = useSelector(selectIsAuth);
-    const [avatarUrl, setAvatarUrl] = React.useState('');
-
-    const inputFileRef = React.useRef(null);
-    const handleChangeFile = async (e) => {
-        try {
-            const formData = new FormData();
-            const file = e.target.files[0];
-            formData.append('image', file);
-            const { data } = await axios.post('/upload', formData);
-            setAvatarUrl(data.url);
-        } catch (error) {
-            console.log(error);
-            alert('Ошибка загрузки файла');
-        }
-    };
-    const onClickRemoveImage = () => {
-        setAvatarUrl('');
-    };
 
     const dispatch = useDispatch();
     const {
@@ -43,7 +24,6 @@ function Registr() {
     });
 
     const onSubmit = async (values) => {
-        values.avatarUrl = avatarUrl;
         const data = await dispatch(fetchRegister(values));
 
         if ('error' in data) {
@@ -56,8 +36,6 @@ function Registr() {
     if (isAuth) {
         console.log(true);
         return <Navigate to="/" />;
-    } else {
-        console.log(false);
     }
 
     return (
