@@ -8,7 +8,7 @@ export const fetchLogin = createAsyncThunk('auth/me', async () => {
 
 export const fetchRegister = createAsyncThunk('auth/register', async (params) => {
     const { data } = await axios.post('/auth/register', params);
-    return data;
+    return (data);
 });
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
@@ -44,7 +44,7 @@ const authSlice = createSlice({
             state.status = 'loaded';
             state.data = action.payload;
         },
-        [fetchLogin.pending]: (state) => {
+        [fetchLogin.rejected]: (state) => {
             state.status = 'error';
             state.data = null;
         },
@@ -57,7 +57,7 @@ const authSlice = createSlice({
             state.status = 'loaded';
             state.data = action.payload;
         },
-        [fetchAuth.pending]: (state) => {
+        [fetchAuth.rejected]: (state) => {
             state.status = 'error';
             state.data = null;
         },
@@ -70,7 +70,7 @@ const authSlice = createSlice({
             state.status = 'loaded';
             state.data = action.payload;
         },
-        [fetchRegister.pending]: (state) => {
+        [fetchRegister.rejected]: (state) => {
             state.status = 'error';
             state.data = null;
         },
@@ -83,7 +83,7 @@ const authSlice = createSlice({
             state.status = 'loaded';
             state.data = action.payload;
         },
-        [fetchLogOut.pending]: (state) => {
+        [fetchLogOut.rejected]: (state) => {
             state.status = 'error';
             state.data = null;
         },
