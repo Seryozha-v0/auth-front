@@ -1,23 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
-export const fetchLogin = createAsyncThunk('auth/me', async () => {
-    const { data } = await axios.get('/auth/me');
+export const fetchLogin = createAsyncThunk('auth/mqumoe', async () => {
+    const { data } = await axios.get('/auth/me').catch((err) => console.log(err.response.data.message));
     return data;
 });
 
 export const fetchRegister = createAsyncThunk('auth/register', async (params) => {
-    const { data } = await axios.post('/auth/register', params);
+    const { data } = await axios.post('/auth/register', params).catch((err) => console.log(err.response.data.message));
     return (data);
 });
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
-    const { data } = await axios.post('/auth/login', params);
+    const { data } = await axios.post('/auth/login', params).catch((err) => console.log(err.response.data.message));
     return data;
 });
 
 export const fetchLogOut = createAsyncThunk('auth/fetchLogOut', async (params) => {
-    const { data } = await axios.get('/auth/logout', params);
+    const { data } = await axios.get('/auth/logout', params).catch((err) => console.log(err.response.data.message));
     return data;
 });
 
@@ -44,7 +44,7 @@ const authSlice = createSlice({
             state.status = 'loaded';
             state.data = action.payload;
         },
-        [fetchLogin.rejected]: (state) => {
+        [fetchLogin.rejected]: (state, action) => {
             state.status = 'error';
             state.data = null;
         },
