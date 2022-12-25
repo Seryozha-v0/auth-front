@@ -1,21 +1,21 @@
 import React from "react";
-import { ReactComponent as Play } from "../assets/icons/play.svg";
-import { ReactComponent as Pause } from "../assets/icons/pause.svg";
+import { ReactComponent as Play } from "../../assets/icons/play.svg";
+import { ReactComponent as Pause } from "../../assets/icons/pause.svg";
 
 
 const AudioList = ({ musics, onPlayMusic, musicIndex, isPlaying, onPlayPauseClick }) => {
     return (
         <div className="audioList">
             {musics.map((item, i) => (
-                <div 
-                    key={i} 
-                    className={(musicIndex === i) ? "audioList__item audioList__item_active" : "audioList__item"} 
+                <div
+                    key={i}
+                    className={(musicIndex === i) ? "audioList__item audioList__item_active" : "audioList__item"}
                     onClick={(musicIndex === i) ? isPlaying ? () => onPlayPauseClick(false) : () => onPlayPauseClick(true) : () => onPlayMusic(i)}
-                    >
+                >
                     <div className="audioList__img">
                         <img
-                            src={item.image}
-                            alt={`${item.title} - ${item.artist}`}
+                            src={item.imageUrl}
+                            alt={`${item.title} - ${item.autor}`}
                         />
                     </div>
                     {(musicIndex === i) ? (
@@ -43,7 +43,7 @@ const AudioList = ({ musics, onPlayMusic, musicIndex, isPlaying, onPlayPauseClic
                             {item.title}
                         </h2>
                         <h3 className="audioList__artist">
-                            {item.artist}
+                            {item.autor}
                         </h3>
                     </div>
                 </div>

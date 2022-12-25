@@ -46,10 +46,13 @@
 
 .audioList__img {
     width: 45px;
+    height: 45px;
 }
 
 .audioList__img img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .audioList__btn {
@@ -171,7 +174,7 @@
 @media (max-width: 768px) {
     .audioList {
         width: 100%;
-        height: calc(100vh - 425px);
+        height: calc(100vh - 365px);
         background: linear-gradient(to bottom, #005c97, #363795);
     }
 

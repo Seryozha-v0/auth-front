@@ -1,17 +1,25 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import './index.css';
-import AudioList from "../../components/AudioList";
-
-import AudioPlayer from '../../components/AudioPlayer'
-import musics from './musics'
+import AudioList from '../../components/music/AudioList'
+import AudioPlayer from '../../components/music/AudioPlayer'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMusics } from "../../redux/slices/musics";
 
 const Music = () => {
+  const dispatch = useDispatch();
+  const { musics } = useSelector(state => state.musics);
+  const isLoading = musics.status === 'loading';
+
+  useEffect(() => {
+    dispatch(fetchMusics());
+  }, [])
+
   const [musicIndex, setMusicIndex] = useState(0);
   const [musicProgress, setMusicProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { audioSrc } = musics[musicIndex];
+  const audioSrc = isLoading ? '' : musics.items[musicIndex].musicUrl;
 
   const audioRef = useRef(new Audio(audioSrc));
 
@@ -19,17 +27,17 @@ const Music = () => {
   const isReady = useRef(false);
 
   const { duration } = audioRef.current;
-  
+
   const toPrevMusic = () => {
     if (musicIndex - 1 < 0) {
-      setMusicIndex(musics.length - 1);
+      setMusicIndex(musics.items.length - 1);
     } else {
       setMusicIndex(musicIndex - 1);
     }
   }
 
   const toNextMusic = () => {
-    if (musicIndex < musics.length - 1) {
+    if (musicIndex < musics.items.length - 1) {
       setMusicIndex(musicIndex + 1);
     } else {
       setMusicIndex(0);
@@ -71,6 +79,10 @@ const Music = () => {
   }
 
   useEffect(() => {
+    if (audioRef.current.currentSrc == '') {
+      audioRef.current = new Audio(audioSrc);
+    }
+
     if (isPlaying) {
       audioRef.current.play();
       startTimer();
@@ -101,25 +113,29 @@ const Music = () => {
 
   return (
     <>
-      <AudioList
-        musics={musics}
-        onPlayMusic={toPlayMusic}
-        musicIndex={musicIndex}
-        isPlaying={isPlaying}
-        onPlayPauseClick={setIsPlaying}
-      />
-      <AudioPlayer
-        music={musics[musicIndex]}
-        currentAudio={audioRef.current}
-        isPlaying={isPlaying}
-        toPrevMusic={toPrevMusic}
-        toNextMusic={toNextMusic}
-        setIsPlaying={setIsPlaying}
-        musicProgress={musicProgress}
-        onScrub={onScrub}
-        onScrubEnd={onScrubEnd}
-        duration={duration}
-      />
+      {isLoading ? '' : (
+        <>
+          <AudioList
+            musics={musics.items}
+            onPlayMusic={toPlayMusic}
+            musicIndex={musicIndex}
+            isPlaying={isPlaying}
+            onPlayPauseClick={setIsPlaying}
+          />
+          <AudioPlayer
+            music={isLoading ? [] : musics.items[musicIndex]}
+            currentAudio={audioRef.current}
+            isPlaying={isPlaying}
+            toPrevMusic={toPrevMusic}
+            toNextMusic={toNextMusic}
+            setIsPlaying={setIsPlaying}
+            musicProgress={musicProgress}
+            onScrub={onScrub}
+            onScrubEnd={onScrubEnd}
+            duration={duration}
+          />
+        </>
+      )}
     </>
   );
 }

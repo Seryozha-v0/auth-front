@@ -10,9 +10,10 @@ const AudioPlayer = (({
     musicProgress,
     onScrub,
     onScrubEnd,
-    duration
+    duration,
+    controls
 }) => {
-    const { title, artist, image } = music;
+    const { title, autor, imageUrl } = music;
 
     const musicTime = `${(Math.floor(duration / 60) < 10) ? '0' + Math.floor(duration / 60) : Math.floor(duration / 60)}:${(Math.floor(duration % 60) < 10) ? '0' + Math.floor(duration % 60) : Math.floor(duration % 60)}`;
 
@@ -23,13 +24,13 @@ const AudioPlayer = (({
             <div className="audioPlayer__info">
                 <div className="audioPlayer__img">
                     <img
-                        src={image}
-                        alt={`${title} - ${artist}`}
+                        src={imageUrl}
+                        alt={`${title} - ${autor}`}
                     />
                 </div>
                 <div className="audioPlayer__descr">
                     <h2 className="audioPlayer__title">{title}</h2>
-                    <h3 className="audioPlayer__artist">{artist}</h3>
+                    <h3 className="audioPlayer__artist">{autor}</h3>
                 </div>
 
                 <AudioControls
