@@ -1,6 +1,23 @@
 import React from "react";
 import AudioControls from "./AudioControls";
 
+const format = (seconds) => {
+    if (isNaN(seconds)) {
+        return '00:00';
+    }
+
+    const date = new Date(seconds * 1000);
+    const hh = date.getUTCHours();
+    const mm = date.getUTCMinutes();
+    const ss = date.getUTCSeconds().toString().padStart(2, '0');
+
+    if (hh) {
+        return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
+    } else {
+        return `${mm.toString().padStart(2, '0')}:${ss}`;
+    }
+}
+
 const AudioPlayer = (({
     music,
     isPlaying,
@@ -11,60 +28,37 @@ const AudioPlayer = (({
     onScrub,
     onScrubEnd,
     duration,
-    controls
 }) => {
-    const { title, autor, imageUrl } = music;
+    const musicTime = format(duration);
 
-    const musicTime = `${(Math.floor(duration / 60) < 10) ? '0' + Math.floor(duration / 60) : Math.floor(duration / 60)}:${(Math.floor(duration % 60) < 10) ? '0' + Math.floor(duration % 60) : Math.floor(duration % 60)}`;
-
-    const musicTimeProgress = `${(Math.floor(musicProgress / 60) < 10) ? '0' + Math.floor(musicProgress / 60) : Math.floor(musicProgress / 60)}:${(Math.floor(musicProgress % 60) < 10) ? '0' + Math.floor(musicProgress % 60) : Math.floor(musicProgress % 60)}`;
+    const musicTimeProgress = format(musicProgress);
 
     return (
-        <div className="audioPlayer">
-            <div className="audioPlayer__info">
-                <div className="audioPlayer__img">
-                    <img
-                        src={imageUrl}
-                        alt={`${title} - ${autor}`}
-                    />
-                </div>
-                <div className="audioPlayer__descr">
-                    <h2 className="audioPlayer__title">{title}</h2>
-                    <h3 className="audioPlayer__artist">{autor}</h3>
-                </div>
-
-                <AudioControls
-                    isPlaying={isPlaying}
-                    onPrevClick={toPrevMusic}
-                    onNextClick={toNextMusic}
-                    onPlayPauseClick={setIsPlaying}
+        <>
+            <AudioControls
+                isPlaying={isPlaying}
+                onPrevClick={toPrevMusic}
+                onNextClick={toNextMusic}
+                onPlayPauseClick={setIsPlaying}
+            />
+            <div className="music-player__progress">
+                <input
+                    type="range"
+                    value={musicProgress}
+                    step="1"
+                    min="0"
+                    max={duration ? duration : `${duration}`}
+                    className="music-player__range"
+                    onChange={(e) => onScrub(e.target.value)}
+                    onMouseUp={onScrubEnd}
+                    onKeyUp={onScrubEnd}
                 />
-
-                <div className="audioPlayer__progress">
-
-                    <div className="audioPlayer__time">
-                        {isPlaying ? (
-                            <>
-                                <span>{musicTimeProgress}</span>
-                                <span>{musicTime}</span>
-                            </>
-                        ) : ''}
-                    </div>
-
-                    <input
-                        type="range"
-                        value={musicProgress}
-                        step="1"
-                        min="0"
-                        max={duration ? duration : `${duration}`}
-                        className="audioPlayer__range"
-                        onChange={(e) => onScrub(e.target.value)}
-                        onMouseUp={onScrubEnd}
-                        onKeyUp={onScrubEnd}
-                    />
+                <div className="music-player__time">
+                    <span>{musicTimeProgress}</span>
+                    <span>{musicTime}</span>
                 </div>
             </div>
-        </div>
+        </>
     )
 })
 

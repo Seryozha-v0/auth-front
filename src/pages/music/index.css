@@ -1,189 +1,206 @@
-:root {
-    --txtColor: #f1f1f1;
-    --backPlayer: #363795;
-}
-
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-.audioControls__btn {
-    display: block;
-    margin: 0;
-    padding: 13px;
-    width: 45px;
-    height: 45px;
-    border: 2px solid #ffffff;
-    border-radius: 100%;
-    background: none;
+i {
     cursor: pointer;
 }
 
-.audioControls__btn svg {
-    width: 100%;
-}
-
-.audioControls__btn svg path {
-    fill: #fff;
-}
-
-.audioList {
-    margin: 0;
-    padding: 5px 15px;
-    width: calc(100% - 150px);
+.column {
+    float: left;
+    width: 50%;
     height: 100vh;
-    background: linear-gradient(to right, #005c97, #363795);
+    overflow-x: auto;
 }
 
-.audioList__item {
+#right-col {
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/001/218/517/small/colorful-holographic-gradient-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+
+    .music-player {
+        min-width: 100%;
+        margin-top: 90vh;
+    }
+}
+
+nav {
     display: flex;
-    margin-bottom: 10px;
-    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
 }
 
-.audioList__img {
-    width: 45px;
-    height: 45px;
+nav a {
+    text-decoration: none;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding: 2em;
+    color: #161616;
 }
 
-.audioList__img img {
+header {
+    height: 40%;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    padding: 3em;
 }
 
-.audioList__btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .25);
-    border: none;
-    border-radius: 0;
-    opacity: 0;
-    transition: .4s opacity;
+p, h {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    padding-bottom: 2.3em;
+    text-transform: uppercase;
+    color: #121212;
 }
 
-.audioList__item:hover .audioList__btn, .audioList__item_active .audioList__btn {
-    opacity: 1;
-}
-
-.audioList__desc {
-    margin-left: 10px;
-    color: var(--txtColor);
-}
-
-.audioList__title, .audioList__artist {
-    margin: 0;
-    margin-bottom: 5px;
-    padding: 0;
-}
-
-.audioList__title {
-    font-size: 18px;
+h {
+    font-size: 2em;
+    color: black;
     font-weight: 600;
 }
 
-.audioList__artist {
-    font-size: 16px;
-    font-weight: 400;
-}
-
-.audioPlayer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 300px;
-    background: var(--backPlayer);
-    padding: 10px 15px;
-    box-shadow: -4px 0px 8px rgba(0, 0, 0, .15);
-}
-
-.audioPlayer__info {
-    position: relative;
+.song-list {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 60%;
+}
+
+.song {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey
+}
+
+.song-info {
+    height: 100%;
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.song-info i, .song-time i {
+    color: #505256;
+    font-size: 30px;
+}
+
+.song-time {
+    height: 100%;
+    width: 30%;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.audioPlayer__img {
-    width: 150px;
-    height: 150px;
-    margin: 20px 0;
+.song-time i {
+    font-size: 20px;
 }
 
-.audioPlayer__img img {
+.album-cover {
+    height: 60%;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cadd8e57240591.59cdc5ba209d3.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.audioPlayer__descr {
-    color: var(--txtColor);
+.album-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.audioPlayer__title, .audioPlayer__artist {
-    margin: 0;
-    margin-bottom: 5px;
-    padding: 0;
+h2 {
+    font-size: 3em;
+    font-style: bold;
+    padding: 15px;
 }
 
-.audioPlayer__artist {
-    font-size: 18px;
-    font-weight: 400;
+.button-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px;
+    align-items: center;
 }
 
-.audioPlayer__progress {
-    position: relative;
-    margin-top: 10px;
-    padding-bottom: 18px;
-    width: 100%;
+.add-button {
+    height: 50px;
+    width: 90px;
+    background: inherit;
+    background: inherit;
+    outline: none;
+    border: none;
+    background: #121212;
+    color: #f1f1f1;
+    padding: 10px 30px;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
 
-.audioPlayer__time {
+.add-button span {
+    text-transform: uppercase;
+    margin-left: 5px;
+}
+
+.more-button {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: inherit;
+    border: 1px solid #aaa;
+    outline: none;
+}
+
+.music-player {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    width: 50%;
+    background-color: thistle;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.music-player__progress {
+
+}
+
+.music-player__time {
     display: flex;
     justify-content: space-between;
+}
+
+.music-player__range {
     width: 100%;
-    font-size: 14px;
-    color: var(--txtColor);
-    opacity: .9;
-}
-
-.audioPlayer__range {
-    width: 100%;
-    height: 4px;
-}
-
-.audioControls {
-    display: flex;
-}
-
-.audioControls .audioControls__btn {
-    margin: 10px 10px 0;
-}
-
-.audioPlayer__time {
-    position: absolute;
-    bottom: 0;
-}
-
-@media (max-width: 768px) {
-    .audioList {
-        width: 100%;
-        height: calc(100vh - 365px);
-        background: linear-gradient(to bottom, #005c97, #363795);
-    }
-
-    .audioPlayer {
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        box-shadow: 0px -4px 8px rgba(0, 0, 0, .15);
-    }
 }

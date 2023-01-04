@@ -1,8 +1,4 @@
 import React from "react";
-import { ReactComponent as Play } from "../../assets/icons/play.svg";
-import { ReactComponent as Pause } from "../../assets/icons/pause.svg";
-import { ReactComponent as Next } from "../../assets/icons/next.svg";
-import { ReactComponent as Prev } from "../../assets/icons/prev.svg";
 
 const AudioControls = ({
     isPlaying,
@@ -11,41 +7,13 @@ const AudioControls = ({
     onNextClick,
 }) => (
     <div className="audioControls">
-        <button
-            type="button"
-            className="audioControls__btn"
-            aria-label="Previous"
-            onClick={onPrevClick}
-        >
-            <Prev />
-        </button>
+        <i className="material-icons" onClick={onPrevClick}>chevron_left</i>
         {isPlaying ? (
-            <button
-                type="button"
-                className="audioControls__btn"
-                aria-label="Pause"
-                onClick={() => onPlayPauseClick(false)}
-            >
-                <Pause />
-            </button>
+            <i className="material-icons" onClick={() => onPlayPauseClick(false)}>pause</i>
         ) : (
-            <button
-                type="button"
-                className="audioControls__btn"
-                aria-label="Play"
-                onClick={() => onPlayPauseClick(true)}
-            >
-                <Play />
-            </button>
+            <i className="material-icons" onClick={() => onPlayPauseClick(true)}>play_arrow</i>
         )}
-        <button
-            type="button"
-            className="audioControls__btn"
-            aria-label="Next"
-            onClick={onNextClick}
-        >
-            <Next />
-        </button>
+        <i className="material-icons" onClick={onNextClick}>chevron_right</i>
     </div>
 )
 
