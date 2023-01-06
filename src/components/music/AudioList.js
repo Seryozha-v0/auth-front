@@ -1,7 +1,6 @@
 import React from "react";
-const musicMetadata = require('music-metadata-browser');
 
-const AudioList = ({ musics, onPlayMusic, musicIndex, isPlaying, onPlayPauseClick }) => {
+const AudioList = ({ musics, onPlayMusic, musicIndex, isPlaying, onPlayPauseClick, formatTime }) => {
 
     return (
         <>
@@ -26,7 +25,7 @@ const AudioList = ({ musics, onPlayMusic, musicIndex, isPlaying, onPlayPauseClic
                     </div>
 
                     <div className="song-time">
-                        <i className="material-icons">more_vert</i>
+                        <i className="material-icons">more_vert</i>{formatTime(item.metaData.duration)}
                     </div>
                 </div>
             ))}

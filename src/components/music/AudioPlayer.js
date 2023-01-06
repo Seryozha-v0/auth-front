@@ -1,23 +1,6 @@
 import React from "react";
 import AudioControls from "./AudioControls";
 
-const format = (seconds) => {
-    if (isNaN(seconds)) {
-        return '00:00';
-    }
-
-    const date = new Date(seconds * 1000);
-    const hh = date.getUTCHours();
-    const mm = date.getUTCMinutes();
-    const ss = date.getUTCSeconds().toString().padStart(2, '0');
-
-    if (hh) {
-        return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
-    } else {
-        return `${mm.toString().padStart(2, '0')}:${ss}`;
-    }
-}
-
 const AudioPlayer = (({
     music,
     isPlaying,
@@ -28,11 +11,8 @@ const AudioPlayer = (({
     onScrub,
     onScrubEnd,
     duration,
+    formatTime
 }) => {
-    const musicTime = format(duration);
-
-    const musicTimeProgress = format(musicProgress);
-
     return (
         <>
             <AudioControls
@@ -54,8 +34,9 @@ const AudioPlayer = (({
                     onKeyUp={onScrubEnd}
                 />
                 <div className="music-player__time">
-                    <span>{musicTimeProgress}</span>
-                    <span>{musicTime}</span>
+                    
+                    <span>{formatTime(musicProgress)}</span>
+                    <span>{formatTime(music.metaData.duration)}</span>
                 </div>
             </div>
         </>

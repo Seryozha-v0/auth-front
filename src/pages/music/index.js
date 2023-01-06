@@ -112,6 +112,23 @@ const Music = () => {
     }
   }, [musicIndex]);
 
+  const formatTime = (seconds) => {
+    if (isNaN(seconds)) {
+      return '00:00';
+    }
+
+    const date = new Date(seconds * 1000);
+    const hh = date.getUTCHours();
+    const mm = date.getUTCMinutes();
+    const ss = date.getUTCSeconds().toString().padStart(2, '0');
+
+    if (hh) {
+      return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
+    } else {
+      return `${mm.toString().padStart(2, '0')}:${ss}`;
+    }
+  }
+
   return (
     <div className="row">
       <div className="column">
@@ -160,23 +177,27 @@ const Music = () => {
               musicIndex={musicIndex}
               isPlaying={isPlaying}
               onPlayPauseClick={setIsPlaying}
+              formatTime={formatTime}
             />
           )}
         </div>
 
         <div className="music-player">
-          <AudioPlayer
-            music={isLoading ? [] : musics.items[musicIndex]}
-            currentAudio={audioRef.current}
-            isPlaying={isPlaying}
-            toPrevMusic={toPrevMusic}
-            toNextMusic={toNextMusic}
-            setIsPlaying={setIsPlaying}
-            musicProgress={musicProgress}
-            onScrub={onScrub}
-            onScrubEnd={onScrubEnd}
-            duration={duration}
-          />
+          {isLoading ? ('') : (
+            <AudioPlayer
+              music={isLoading ? [] : musics.items[musicIndex]}
+              currentAudio={audioRef.current}
+              isPlaying={isPlaying}
+              toPrevMusic={toPrevMusic}
+              toNextMusic={toNextMusic}
+              setIsPlaying={setIsPlaying}
+              musicProgress={musicProgress}
+              onScrub={onScrub}
+              onScrubEnd={onScrubEnd}
+              duration={duration}
+              formatTime={formatTime}
+            />
+          )}
         </div>
 
       </div>
